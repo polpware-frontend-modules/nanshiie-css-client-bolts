@@ -1,0 +1,22 @@
+{
+  "name": "@nanshiie/css-client-bolts",
+  "version": "8.0.0",
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "@fortawesome/angular-fontawesome": "^0.6.0"
+  },
+  "main": "bundles/nanshiie-css-client-bolts.umd.js",
+  "module": "fesm5/nanshiie-css-client-bolts.js",
+  "es2015": "fesm2015/nanshiie-css-client-bolts.js",
+  "esm5": "esm5/nanshiie-css-client-bolts.js",
+  "esm2015": "esm2015/nanshiie-css-client-bolts.js",
+  "fesm5": "fesm5/nanshiie-css-client-bolts.js",
+  "fesm2015": "fesm2015/nanshiie-css-client-bolts.js",
+  "typings": "nanshiie-css-client-bolts.d.ts",
+  "metadata": "nanshiie-css-client-bolts.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
