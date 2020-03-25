@@ -18,10 +18,12 @@ export declare class RuntimeConfiguration {
     private _dsmServerApiKey4DSM;
     dsmServerApiKey4DSM: string;
     readonly discoverDSMEndpoint: string;
-    private _pintDSMFromDSU;
+    private _pingDSMFromDSU;
     pingDSMEndpoint4DSU: string;
-    private _pintDSMFromDSP;
+    private _pingDSMFromDSP;
     pingDSMEndpoint4DSP: string;
-    private _pintDSMFromDSM;
+    private _pingDSMFromDSM;
     pingDSMEndpoint4DSM: string;
+    private _hostReservedDiskSettingPath;
+    hostReservedDiskSettingPath: string;
 }

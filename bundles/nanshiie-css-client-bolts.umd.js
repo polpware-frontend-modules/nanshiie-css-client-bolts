@@ -508,14 +508,14 @@
              * @return {?}
              */
             function () {
-                return this._pintDSMFromDSU;
+                return this._pingDSMFromDSU;
             },
             set: /**
              * @param {?} value
              * @return {?}
              */
             function (value) {
-                this._pintDSMFromDSU = value;
+                this._pingDSMFromDSU = value;
             },
             enumerable: true,
             configurable: true
@@ -525,14 +525,14 @@
              * @return {?}
              */
             function () {
-                return this._pintDSMFromDSP;
+                return this._pingDSMFromDSP;
             },
             set: /**
              * @param {?} value
              * @return {?}
              */
             function (value) {
-                this._pintDSMFromDSP = value;
+                this._pingDSMFromDSP = value;
             },
             enumerable: true,
             configurable: true
@@ -542,14 +542,31 @@
              * @return {?}
              */
             function () {
-                return this._pintDSMFromDSM;
+                return this._pingDSMFromDSM;
             },
             set: /**
              * @param {?} value
              * @return {?}
              */
             function (value) {
-                this._pintDSMFromDSM = value;
+                this._pingDSMFromDSM = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(RuntimeConfiguration.prototype, "hostReservedDiskSettingPath", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._hostReservedDiskSettingPath;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._hostReservedDiskSettingPath = value;
             },
             enumerable: true,
             configurable: true
@@ -612,17 +629,22 @@
          * @type {?}
          * @private
          */
-        RuntimeConfiguration.prototype._pintDSMFromDSU;
+        RuntimeConfiguration.prototype._pingDSMFromDSU;
         /**
          * @type {?}
          * @private
          */
-        RuntimeConfiguration.prototype._pintDSMFromDSP;
+        RuntimeConfiguration.prototype._pingDSMFromDSP;
         /**
          * @type {?}
          * @private
          */
-        RuntimeConfiguration.prototype._pintDSMFromDSM;
+        RuntimeConfiguration.prototype._pingDSMFromDSM;
+        /**
+         * @type {?}
+         * @private
+         */
+        RuntimeConfiguration.prototype._hostReservedDiskSettingPath;
     }
 
     /**
@@ -1655,6 +1677,254 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/services/host-reserved-disk-rw.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function IHostReservedDiskModel() { }
+    if (false) {
+        /** @type {?} */
+        IHostReservedDiskModel.prototype.storageRootFullPath;
+        /** @type {?|undefined} */
+        IHostReservedDiskModel.prototype.tempDirName;
+        /** @type {?|undefined} */
+        IHostReservedDiskModel.prototype.stagedDirName;
+        /** @type {?|undefined} */
+        IHostReservedDiskModel.prototype.commitedDirName;
+        /** @type {?|undefined} */
+        IHostReservedDiskModel.prototype.availableDrivers;
+    }
+    var HostReservedDiskRWService = /** @class */ (function () {
+        function HostReservedDiskRWService(_httpClient, _runtimeConfiguration) {
+            this._httpClient = _httpClient;
+            this._runtimeConfiguration = _runtimeConfiguration;
+        }
+        /**
+         * @param {?=} checkCache
+         * @return {?}
+         */
+        HostReservedDiskRWService.prototype.readAsync = /**
+         * @param {?=} checkCache
+         * @return {?}
+         */
+        function (checkCache) {
+            if (checkCache === void 0) { checkCache = true; }
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (checkCache && this._cached) {
+                                return [2 /*return*/, this._cached];
+                            }
+                            return [4 /*yield*/, this._httpClient.get(this._runtimeConfiguration.hostReservedDiskSettingPath)
+                                    .pipe(operators.tap((/**
+                                 * @param {?} a
+                                 * @return {?}
+                                 */
+                                function (a) {
+                                    _this._cached = a;
+                                }))).toPromise()];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            });
+        };
+        /**
+         * @param {?} data
+         * @return {?}
+         */
+        HostReservedDiskRWService.prototype.writeAsync = /**
+         * @param {?} data
+         * @return {?}
+         */
+        function (data) {
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._httpClient.post(this._runtimeConfiguration.hostReservedDiskSettingPath, data)
+                                .pipe(operators.tap((/**
+                             * @param {?} _
+                             * @return {?}
+                             */
+                            function (_) {
+                                _this._cached.storageRootFullPath = data.storageRootFullPath;
+                            }))).toPromise()];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                });
+            });
+        };
+        HostReservedDiskRWService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root'
+                    },] }
+        ];
+        /** @nocollapse */
+        HostReservedDiskRWService.ctorParameters = function () { return [
+            { type: http.HttpClient },
+            { type: RuntimeConfiguration }
+        ]; };
+        /** @nocollapse */ HostReservedDiskRWService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function HostReservedDiskRWService_Factory() { return new HostReservedDiskRWService(core.ɵɵinject(http.HttpClient), core.ɵɵinject(RuntimeConfiguration)); }, token: HostReservedDiskRWService, providedIn: "root" });
+        return HostReservedDiskRWService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        HostReservedDiskRWService.prototype._cached;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostReservedDiskRWService.prototype._httpClient;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostReservedDiskRWService.prototype._runtimeConfiguration;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/components/host-reserved-disk-form/host-reserved-disk-form.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var HostReservedDiskFormComponent = /** @class */ (function () {
+        function HostReservedDiskFormComponent(_diskService, alertServiceProvider, translateServiceProvicer, formBuilder) {
+            this._diskService = _diskService;
+            this._alertService = alertServiceProvider.get();
+            this.translator = translateServiceProvicer.get();
+            this.form = formBuilder.group({
+                storageRootFullPath: new forms.FormControl('', { validators: [forms.Validators.required] })
+            });
+        }
+        Object.defineProperty(HostReservedDiskFormComponent.prototype, "storageRootFullPath", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this.form.get('storageRootFullPath'); },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        HostReservedDiskFormComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this._diskService.readAsync()
+                .then((/**
+             * @param {?} a
+             * @return {?}
+             */
+            function (a) {
+                _this.deviceInfo = a;
+                _this.storageRootFullPath.setValue(a.storageRootFullPath);
+                _this.enable(false, null);
+            }));
+        };
+        /**
+         * @param {?} flag
+         * @param {?} evt
+         * @return {?}
+         */
+        HostReservedDiskFormComponent.prototype.enable = /**
+         * @param {?} flag
+         * @param {?} evt
+         * @return {?}
+         */
+        function (flag, evt) {
+            evt && evt.preventDefault();
+            evt && evt.stopPropagation();
+            if (flag) {
+                this.form.enable();
+            }
+            else {
+                this.form.disable();
+                this.alertMessage = '';
+                this.alertType = '';
+            }
+        };
+        /**
+         * @return {?}
+         */
+        HostReservedDiskFormComponent.prototype.submit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            // Assuming that the values to be submitted are new and valid.
+            // todo: Progress
+            this.alertType = 'alert-info';
+            this.alertMessage = "Submitting ...";
+            this._diskService.writeAsync(this.form.value)
+                .then((/**
+             * @param {?} _
+             * @return {?}
+             */
+            function (_) {
+                // notify message                
+                _this.alertType = 'alert-success';
+                _this.alertMessage = "Just updated successfully.";
+                _this.form.disable();
+                _this._alertService.showMessage('Storage Space Root', 'You just updated the full path of the storage space root!', ngxAppkitContractsAlpha.MessageSeverity.success);
+            }), (/**
+             * @param {?} _
+             * @return {?}
+             */
+            function (_) {
+                _this.alertType = 'alert-danger';
+                _this.alertMessage = 'Something went wrong!';
+            }));
+        };
+        HostReservedDiskFormComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'host-reserved-disk-form',
+                        template: "<form [formGroup]=\"form\" (ngSubmit)=\"submit()\">\n    <div class=\"form-group\">\n        <label for=\"storageRootFullPath\">Storage Space Root Full Path</label>\n        <input formControlName=\"storageRootFullPath\" required \n               type=\"text\" class=\"form-control\" id=\"storageRootFullPath\" aria-describedby=\"storageRootFullPathHelper\">\n        <small id=\"storageRootFullPathHelper\" class=\"form-text text-muted\">\n            Please specify the full path of the directory where files are stored on the hosting device.\n            Please make sure that the path exists.\n        </small>\n        <div *ngIf=\"storageRootFullPath.invalid && (storageRootFullPath.dirty || storageRootFullPath.touched)\"\n             class=\"alert alert-danger\">\n            <div *ngIf=\"storageRootFullPath.errors.required\">\n                Full path is required.\n            </div>\n        </div>        \n    </div>\n    <div class=\"alert\" [ngClass]=\"alertType\">\n        <h6>{{alertMessage}}</h6>\n    </div>\n    <div class=\"d-flex flex-row justify-content-start\">\n        <button *ngIf=\"form.disabled; else submitTmpl\"\n                type=\"button\" class=\"btn btn-primary px-4\" (click)=\"enable(true, $event)\">Edit</button>\n        <ng-template #submitTmpl>\n            <button type=\"submit\" class=\"ml-2 btn btn-primary px-4\" [disabled]=\"form.invalid\">Submit</button>\n            <button type=\"button\" class=\"ml-2 px-4 btn btn-secondary\" (click)=\"enable(false, $event)\">Cancel</button>        \n        </ng-template>\n    </div>\n</form>\n",
+                        styles: [""]
+                    }] }
+        ];
+        /** @nocollapse */
+        HostReservedDiskFormComponent.ctorParameters = function () { return [
+            { type: HostReservedDiskRWService },
+            { type: ngxAppkitContractsAlpha.AlertServiceAbstractProvider },
+            { type: ngxAppkitContractsAlpha.TranslationServiceAbstractProvider },
+            { type: forms.FormBuilder }
+        ]; };
+        return HostReservedDiskFormComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        HostReservedDiskFormComponent.prototype.form;
+        /** @type {?} */
+        HostReservedDiskFormComponent.prototype.alertMessage;
+        /** @type {?} */
+        HostReservedDiskFormComponent.prototype.alertType;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostReservedDiskFormComponent.prototype._alertService;
+        /** @type {?} */
+        HostReservedDiskFormComponent.prototype.translator;
+        /** @type {?} */
+        HostReservedDiskFormComponent.prototype.deviceInfo;
+        /**
+         * @type {?}
+         * @private
+         */
+        HostReservedDiskFormComponent.prototype._diskService;
+    }
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/css-client-bolts.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -1665,7 +1935,8 @@
             { type: core.NgModule, args: [{
                         declarations: [
                             DsmSettingsFormComponent,
-                            DsuRegisterFormComponent
+                            DsuRegisterFormComponent,
+                            HostReservedDiskFormComponent
                         ],
                         imports: [
                             common.CommonModule,
@@ -1675,7 +1946,8 @@
                         ],
                         exports: [
                             DsmSettingsFormComponent,
-                            DsuRegisterFormComponent
+                            DsuRegisterFormComponent,
+                            HostReservedDiskFormComponent
                         ]
                     },] }
         ];
@@ -1688,6 +1960,8 @@
     exports.DsmUtilitiesService = DsmUtilitiesService;
     exports.DsuRegistarService = DsuRegistarService;
     exports.DsuRegisterFormComponent = DsuRegisterFormComponent;
+    exports.HostReservedDiskFormComponent = HostReservedDiskFormComponent;
+    exports.HostReservedDiskRWService = HostReservedDiskRWService;
     exports.RuntimeConfiguration = RuntimeConfiguration;
     exports.calculateDsuSpecChanges = calculateDsuSpecChanges;
 
