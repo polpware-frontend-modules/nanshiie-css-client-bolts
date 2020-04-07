@@ -902,6 +902,7 @@
         function DsmSettingsFormComponent(_rwService, _utilitiesService, alertServiceProvider, translateServiceProvicer, formBuilder) {
             this._rwService = _rwService;
             this._utilitiesService = _utilitiesService;
+            this.deviceUnit = 'dsu';
             this.steps = [];
             this._alertService = alertServiceProvider.get();
             this.translator = translateServiceProvicer.get();
@@ -978,7 +979,7 @@
          */
         function () {
             return __awaiter(this, void 0, void 0, function () {
-                var newServerUrl, newServerApiKey, a, _a;
+                var newServerUrl, newServerApiKey, _a;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
@@ -992,27 +993,40 @@
                             newServerApiKey = this.serverApiKey.value;
                             _b.label = 1;
                         case 1:
-                            _b.trys.push([1, 4, , 5]);
+                            _b.trys.push([1, 9, , 10]);
                             this.steps.push({ action: 'Connecting to DSM ...', status: '' });
                             return [4 /*yield*/, this._utilitiesService.discoverEndpoints(newServerUrl)];
                         case 2:
-                            a = _b.sent();
+                            _b.sent();
                             this.steps[this.steps.length - 1].status = 'Ok';
                             this.steps.push({ action: 'Validating API Key ...', status: '' });
+                            if (!(this.deviceUnit == 'dsu')) return [3 /*break*/, 4];
                             return [4 /*yield*/, this._utilitiesService.pingFromDSUAsync(newServerUrl, newServerApiKey)];
                         case 3:
                             _b.sent();
+                            return [3 /*break*/, 8];
+                        case 4:
+                            if (!(this.deviceUnit == 'dsp')) return [3 /*break*/, 6];
+                            return [4 /*yield*/, this._utilitiesService.pingFromDSPAsync(newServerUrl, newServerApiKey)];
+                        case 5:
+                            _b.sent();
+                            return [3 /*break*/, 8];
+                        case 6: return [4 /*yield*/, this._utilitiesService.pingFromDSMAsync(newServerUrl, newServerApiKey)];
+                        case 7:
+                            _b.sent();
+                            _b.label = 8;
+                        case 8:
                             this.steps[this.steps.length - 1].status = 'Ok';
                             this.passCheck = true;
                             this.alertType = 'alert-success';
-                            return [3 /*break*/, 5];
-                        case 4:
+                            return [3 /*break*/, 10];
+                        case 9:
                             _a = _b.sent();
                             this.steps[this.steps.length - 1].status = 'Error';
                             this.alertType = 'alert-danger';
                             this.alertMessage = 'Fail to verify DSM information!';
-                            return [3 /*break*/, 5];
-                        case 5: return [2 /*return*/];
+                            return [3 /*break*/, 10];
+                        case 10: return [2 /*return*/];
                     }
                 });
             });
@@ -1064,9 +1078,14 @@
             { type: ngxAppkitContractsAlpha.TranslationServiceAbstractProvider },
             { type: forms.FormBuilder }
         ]; };
+        DsmSettingsFormComponent.propDecorators = {
+            deviceUnit: [{ type: core.Input }]
+        };
         return DsmSettingsFormComponent;
     }());
     if (false) {
+        /** @type {?} */
+        DsmSettingsFormComponent.prototype.deviceUnit;
         /** @type {?} */
         DsmSettingsFormComponent.prototype.form;
         /** @type {?} */

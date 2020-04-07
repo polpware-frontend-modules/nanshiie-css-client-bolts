@@ -601,6 +601,7 @@ class DsmSettingsFormComponent {
     constructor(_rwService, _utilitiesService, alertServiceProvider, translateServiceProvicer, formBuilder) {
         this._rwService = _rwService;
         this._utilitiesService = _utilitiesService;
+        this.deviceUnit = 'dsu';
         this.steps = [];
         this._alertService = alertServiceProvider.get();
         this.translator = translateServiceProvicer.get();
@@ -669,11 +670,18 @@ class DsmSettingsFormComponent {
             const newServerApiKey = this.serverApiKey.value;
             try {
                 this.steps.push({ action: 'Connecting to DSM ...', status: '' });
-                /** @type {?} */
-                const a = yield this._utilitiesService.discoverEndpoints(newServerUrl);
+                yield this._utilitiesService.discoverEndpoints(newServerUrl);
                 this.steps[this.steps.length - 1].status = 'Ok';
                 this.steps.push({ action: 'Validating API Key ...', status: '' });
-                yield this._utilitiesService.pingFromDSUAsync(newServerUrl, newServerApiKey);
+                if (this.deviceUnit == 'dsu') {
+                    yield this._utilitiesService.pingFromDSUAsync(newServerUrl, newServerApiKey);
+                }
+                else if (this.deviceUnit == 'dsp') {
+                    yield this._utilitiesService.pingFromDSPAsync(newServerUrl, newServerApiKey);
+                }
+                else {
+                    yield this._utilitiesService.pingFromDSMAsync(newServerUrl, newServerApiKey);
+                }
                 this.steps[this.steps.length - 1].status = 'Ok';
                 this.passCheck = true;
                 this.alertType = 'alert-success';
@@ -729,7 +737,12 @@ DsmSettingsFormComponent.ctorParameters = () => [
     { type: TranslationServiceAbstractProvider },
     { type: FormBuilder }
 ];
+DsmSettingsFormComponent.propDecorators = {
+    deviceUnit: [{ type: Input }]
+};
 if (false) {
+    /** @type {?} */
+    DsmSettingsFormComponent.prototype.deviceUnit;
     /** @type {?} */
     DsmSettingsFormComponent.prototype.form;
     /** @type {?} */

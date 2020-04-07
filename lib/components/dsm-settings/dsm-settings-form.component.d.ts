@@ -10,6 +10,7 @@ interface IStepProgress {
 export declare class DsmSettingsFormComponent implements OnInit {
     private readonly _rwService;
     private readonly _utilitiesService;
+    deviceUnit: 'dsu' | 'dsm' | 'dsp';
     readonly form: FormGroup;
     alertMessage: string;
     alertType: 'alert-info' | 'alert-success' | 'alert-danger' | '';
